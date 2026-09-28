@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Piket Kelas - Radiator Springs</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f4ead8;
+  color:#292929;
+  transition:.3s;
+}
+
+body.dark{
+  background:#171717;
+  color:#f5f5f5;
+}
+
+/* ================= HEADER ================= */
+
+header{
+  background:#d94b32;
+  color:white;
+  padding:25px 20px;
+  text-align:center;
+  border-bottom:6px solid #292929;
+}
+
+header h1{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+header p{
+  margin-bottom:12px;
+}
+
+.route{
+  display:inline-block;
+  background:#292929;
+  padding:8px 15px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 15px;
+}
+
+.top-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+input,
+select{
+  padding:12px;
+  border:2px solid #292929;
+  border-radius:10px;
+  background:white;
+  color:#292929;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+}
+
+.dark-toggle,
+.day-btn,
+.game-tab,
+.game-button{
+  border:2px solid #292929;
+  background:#f5c84b;
+  color:#292929;
+  padding:11px 15px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.day-filter{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.day-btn.active{
+  background:#d94b32;
+  color:white;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 15px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.summary-card{
+  padding:18px;
+  background:white;
+  border:3px solid #292929;
+  border-radius:15px;
+  text-align:center;
+}
+
+.summary-card h3{
+  font-size:14px;
+}
+
+.summary-card strong{
+  font-size:28px;
+}
+
+body.dark .summary-card{
+  background:#242424;
+  border-color:#555;
+}
+
+/* ================= SCHEDULE ================= */
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:0 15px 30px;
+}
+
+.day-section{
+  margin-bottom:30px;
+}
+
+.day-title{
+  background:#292929;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.student-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
+}
+
+.student-card{
+  background:white;
+  border:3px solid #292929;
+  border-radius:18px;
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+
+body.dark .student-card{
+  background:#242424;
+  border-color:#555;
+}
+
+.student-name{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.student-xp{
+  color:#c58b00;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.attendance{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin-top:12px;
+}
+
+.attendance button{
+  padding:7px 3px;
+  border:2px solid #292929;
+  border-radius:8px;
+  background:#eee;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.attendance button.active{
+  background:#f5c84b;
+}
+
+/* ================= LEADERBOARD ================= */
+
+.leaderboard{
+  max-width:1100px;
+  margin:20px auto 30px;
+  padding:0 15px;
+}
+
+.leaderboard-box{
+  background:white;
+  border:3px solid #292929;
+  border-radius:18px;
+  padding:20px;
+}
+
+body.dark .leaderboard-box{
+  background:#242424;
+  border-color:#555;
+}
+
+.leader-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px;
+  margin:7px 0;
+  background:#f4ead8;
+  border-radius:10px;
+}
+
+body.dark .leader-item{
+  background:#333;
+}
+
+.rank{
+  font-weight:bold;
+  width:45px;
+}
+
+/* ================= GAME ZONE ================= */
+
+.games-wrapper{
+  max-width:1100px;
+  margin:30px auto;
+  padding:20px 15px;
+}
+
+.games-title{
+  text-align:center;
+  background:#d94b32;
+  color:white;
+  border:4px solid #292929;
+  border-radius:20px;
+  padding:20px;
+}
+
+.games-title h2{
+  margin-bottom:8px;
+}
+
+.game-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:15px 0;
+}
+
+.game-tab.active{
+  background:#d94b32;
+  color:white;
+}
+
+.game-box{
+  background:white;
+  border:3px solid #292929;
+  border-radius:20px;
+  padding:20px;
+}
+
+body.dark .game-box{
+  background:#222;
+  border-color:#555;
+}
+
+.game-player{
+  background:#f6ead7;
+  border:3px solid #292929;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:20px;
+}
+
+body.dark .game-player{
+  background:#333;
+  border-color:#666;
+}
+
+.game-player label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.game-player select{
+  width:100%;
+}
+
+.xp-earned{
+  display:inline-block;
+  background:#f5c84b;
+  border:2px solid #292929;
+  border-radius:20px;
+  padding:8px 15px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.game-panel{
+  display:none;
+  text-align:center;
+}
+
+.game-panel.active{
+  display:block;
+}
+
+.game-panel h3{
+  font-size:28px;
+  margin:10px;
+}
+
+.game-description{
+  margin-bottom:15px;
+}
+
+.game-score{
+  margin:15px;
+  font-size:18px;
+}
+
+.game-button{
+  margin:10px;
+}
+
+.game-message{
+  min-height:30px;
+  margin:15px;
+  font-weight:bold;
+}
+
+/* ================= RACE ================= */
+
+.race-car{
+  font-size:70px;
+  animation:drive 1.5s infinite alternate;
+}
+
+@keyframes drive{
+  from{transform:translateX(-30px);}
+  to{transform:translateX(30px);}
+}
+
+.race-question{
+  background:#f6ead7;
+  border:3px solid #292929;
+  border-radius:15px;
+  padding:20px;
+  max-width:500px;
+  margin:20px auto;
+}
+
+.race-question h4{
+  font-size:30px;
+  margin:10px;
+}
+
+.race-answers{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+
+.race-answers button{
+  padding:12px 18px;
+  border:2px solid #292929;
+  border-radius:10px;
+  background:#f5c84b;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* ================= MEMORY ================= */
+
+.memory-board{
+  max-width:600px;
+  margin:20px auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.memory-card{
+  height:100px;
+  border:3px solid #292929;
+  border-radius:12px;
+  background:#d94b32;
+  color:white;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.memory-card.flipped,
+.memory-card.matched{
+  background:#f5c84b;
+  color:#292929;
+}
+
+/* ================= TAP ================= */
+
+.tap-area{
+  height:350px;
+  max-width:700px;
+  margin:20px auto;
+  background:#f6ead7;
+  border:3px solid #292929;
+  border-radius:18px;
+  position:relative;
+  overflow:hidden;
+}
+
+.tap-target{
+  position:absolute;
+  width:70px;
+  height:70px;
+  border:0;
+  background:transparent;
+  font-size:55px;
+  cursor:pointer;
+  display:none;
+}
+
+/* ================= LIGHTNING ================= */
+
+.lightning-area{
+  position:relative;
+  height:330px;
+  max-width:700px;
+  margin:20px auto;
+  background:#f6ead7;
+  border:3px solid #292929;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.lightning-target{
+  position:absolute;
+  width:65px;
+  height:65px;
+  border:none;
+  background:transparent;
+  font-size:45px;
+  cursor:pointer;
+  display:none;
+}
+
+/* ================= TRAFFIC ================= */
+
+.traffic-area{
+  background:#f6ead7;
+  border:3px solid #292929;
+  border-radius:18px;
+  padding:25px;
+  max-width:500px;
+  margin:20px auto;
+}
+
+.traffic-light{
+  width:110px;
+  background:#292929;
+  border-radius:25px;
+  padding:15px;
+  margin:0 auto 20px;
+}
+
+.traffic-bulb{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:#555;
+  margin:8px auto;
+  border:3px solid #111;
+}
+
+.traffic-bulb.red.active{
+  background:#e74c3c;
+}
+
+.traffic-bulb.yellow.active{
+  background:#f5c84b;
+}
+
+.traffic-bulb.green.active{
+  background:#2ecc71;
+}
+
+.traffic-car{
+  font-size:65px;
+  cursor:pointer;
+  user-select:none;
+}
+
+body.dark .traffic-area,
+body.dark .lightning-area,
+body.dark .tap-area,
+body.dark .race-question{
+  background:#333;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  background:#292929;
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:20px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:700px){
+
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  header h1{
+    font-size:25px;
+  }
+
+  .memory-board{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .memory-card{
+    height:70px;
+    font-size:23px;
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+  <h1>🚗 DAFTAR PIKET KELAS</h1>
+
+  <p>
+    Jadwal Piket • Kehadiran • Leaderboard
+  </p>
+
+  <div class="route">
+    🏜️ RADIATOR SPRINGS • ROUTE 66 🏁
+  </div>
+
+</header>
+
+
+<!-- =====================================================
+     CONTROLS
+===================================================== -->
+
+<div class="controls">
+
+  <div class="top-controls">
+
+    <input
+      id="searchInput"
+      class="search"
+      type="text"
+      placeholder="🔎 Cari nama siswa..."
+      oninput="renderSchedule()"
+    >
+
+    <button
+      class="dark-toggle"
+      onclick="toggleDarkMode()">
+      🌙 Mode
+    </button>
+
+  </div>
+
+  <div class="day-filter">
+
+    <button
+      class="day-btn active"
+      onclick="setDay('Semua',this)">
+      Semua
+    </button>
+
+    <button
+      class="day-btn"
+      onclick="setDay('Senin',this)">
+      Senin
+    </button>
+
+    <button
+      class="day-btn"
+      onclick="setDay('Selasa',this)">
+      Selasa
+    </button>
+
+    <button
+      class="day-btn"
+      onclick="setDay('Rabu',this)">
+      Rabu
+    </button>
+
+    <button
+      class="day-btn"
+      onclick="setDay('Kamis',this)">
+      Kamis
+    </button>
+
+    <button
+      class="day-btn"
+      onclick="setDay('Jumat',this)">
+      Jumat
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<div class="summary">
+
+  <div class="summary-card">
+    <h3>✅ Hadir</h3>
+    <strong id="hadirCount">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <h3>🟡 Izin</h3>
+    <strong id="izinCount">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <h3>🔵 Sakit</h3>
+    <strong id="sakitCount">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <h3>🔴 Alpa</h3>
+    <strong id="alpaCount">0</strong>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCHEDULE
+===================================================== -->
+
+<div
+  id="schedule"
+  class="container">
+</div>
+
+
+<!-- =====================================================
+     LEADERBOARD
+===================================================== -->
+
+<div class="leaderboard">
+
+  <div class="leaderboard-box">
+
+    <h2>
+      🏆 LEADERBOARD XP
+    </h2>
+
+    <div id="leaderboardList"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     GAME ZONE
+===================================================== -->
+
+<div class="games-wrapper">
+
+  <div class="games-title">
+
+    <h2>🎮 RADIATOR SPRINGS GAME ZONE</h2>
+
+    <p>
+      Main game • Kumpulkan XP • Naik ke leaderboard! 🏆
+    </p>
+
+  </div>
+
+
+  <div class="game-tabs">
+
+    <button
+      class="game-tab active"
+      onclick="showGame('race',this)">
+      🏁 Piket Race
+    </button>
+
+    <button
+      class="game-tab"
+      onclick="showGame('memory',this)">
+      🧠 Memory Card
+    </button>
+
+    <button
+      class="game-tab"
+      onclick="showGame('tap',this)">
+      ⚡ Quick Tap
+    </button>
+
+    <button
+      class="game-tab"
+      onclick="showGame('lightning',this)">
+      🎯 Catch Lightning
+    </button>
+
+    <button
+      class="game-tab"
+      onclick="showGame('traffic',this)">
+      🚦 Traffic Challenge
+    </button>
+
+  </div>
+
+
+  <div class="game-box">
+
+
+    <!-- PLAYER -->
+
+    <div class="game-player">
+
+      <label>
+        👤 Pilih pemain
+      </label>
+
+      <select id="gamePlayer">
+
+        <option value="">
+          -- Pilih nama siswa --
+        </option>
+
+      </select>
+
+      <div
+        id="playerXP"
+        class="xp-earned">
+        ⭐ XP saat ini: 0
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PIKET RACE
+    ================================================= -->
+
+    <div
+      id="game-race"
+      class="game-panel active">
+
+      <div class="race-car">
+        🚗
+      </div>
+
+      <h3>🏁 Piket Race</h3>
+
+      <p class="game-description">
+        Tebak hari piket dari nama siswa!
+      </p>
+
+      <div class="game-score">
+
+        ⭐ Skor:
+        <strong id="raceScore">0</strong>
+
+        &nbsp;|&nbsp;
+
+        📝
+        <strong id="raceNumber">0</strong>/10
+
+      </div>
+
+      <button
+        class="game-button"
+        onclick="startRace()">
+        🏁 Mulai Game
+      </button>
+
+      <div
+        id="racePlay"
+        style="display:none;">
+
+        <div class="race-question">
+
+          <p>Nama siswa:</p>
+
+          <h4 id="raceName">
+            -
+          </h4>
+
+          <p>
+            Hari piketnya adalah...
+          </p>
+
+        </div>
+
+        <div class="race-answers">
+
+          <button onclick="answerRace('Senin')">
+            🚗 Senin
+          </button>
+
+          <button onclick="answerRace('Selasa')">
+            🚙 Selasa
+          </button>
+
+          <button onclick="answerRace('Rabu')">
+            🏎️ Rabu
+          </button>
+
+          <button onclick="answerRace('Kamis')">
+            🚕 Kamis
+          </button>
+
+          <button onclick="answerRace('Jumat')">
+            🚓 Jumat
+          </button>
+
+        </div>
+
+        <div
+          id="raceMessage"
+          class="game-message">
+        </div>
+
+      </div>
+
+      <div
+        id="raceResult"
+        style="display:none;">
+
+        <div class="xp-earned">
+          ⭐ XP didapat:
+          <span id="raceXP"></span>
+        </div>
+
+        <p id="raceResultText"></p>
+
+        <button
+          class="game-button"
+          onclick="startRace()">
+          🔄 Main Lagi
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MEMORY
+    ================================================= -->
+
+    <div
+      id="game-memory"
+      class="game-panel">
+
+      <h3>🧠 Memory Card</h3>
+
+      <p class="game-description">
+        Temukan semua pasangan kartu!
+      </p>
+
+      <div class="game-score">
+
+        🔄 Percobaan:
+        <strong id="memoryMoves">0</strong>
+
+        &nbsp;|&nbsp;
+
+        ✅ Pasangan:
+        <strong id="memoryMatches">0</strong>/8
+
+      </div>
+
+      <div
+        id="memoryBoard"
+        class="memory-board">
+      </div>
+
+      <button
+        class="game-button"
+        onclick="startMemory()">
+        🔄 Mulai / Ulangi
+      </button>
+
+      <p
+        id="memoryMessage"
+        class="game-message">
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         QUICK TAP
+    ================================================= -->
+
+    <div
+      id="game-tap"
+      class="game-panel">
+
+      <h3>⚡ Quick Tap</h3>
+
+      <p class="game-description">
+        Klik mobil sebanyak mungkin dalam 15 detik!
+      </p>
+
+      <div class="game-score">
+
+        ⏱️ Waktu:
+        <strong id="tapTimer">15</strong>
+
+        &nbsp;|&nbsp;
+
+        ⭐ Skor:
+        <strong id="tapScore">0</strong>
+
+      </div>
+
+      <button
+        class="game-button"
+        onclick="startTapGame()">
+        ⚡ Mulai Game
+      </button>
+
+      <div class="tap-area">
+
+        <button
+          id="tapTarget"
+          class="tap-target"
+          onclick="hitTarget()">
+          🚗
+        </button>
+
+      </div>
+
+      <p
+        id="tapMessage"
+        class="game-message">
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         CATCH LIGHTNING
+    ================================================= -->
+
+    <div
+      id="game-lightning"
+      class="game-panel">
+
+      <h3>🎯 Catch the Lightning</h3>
+
+      <p class="game-description">
+        Tangkap ⚡ yang muncul sebanyak mungkin!
+      </p>
+
+      <div class="game-score">
+
+        ⏱️ Waktu:
+        <strong id="lightningTimer">20</strong>
+
+        &nbsp;|&nbsp;
+
+        ⚡ Tangkap:
+        <strong id="lightningScore">0</strong>
+
+      </div>
+
+      <button
+        class="game-button"
+        onclick="startLightning()">
+        🎯 Mulai Game
+      </button>
+
+      <div class="lightning-area">
+
+        <button
+          id="lightningTarget"
+          class="lightning-target"
+          onclick="catchLightning()">
+          ⚡
+        </button>
+
+      </div>
+
+      <p
+        id="lightningMessage"
+        class="game-message">
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         TRAFFIC LIGHT
+    ================================================= -->
+
+    <div
+      id="game-traffic"
+      class="game-panel">
+
+      <h3>🚦 Traffic Light Challenge</h3>
+
+      <p class="game-description">
+        Ikuti lampu lalu lintas! Jangan sampai salah!
+      </p>
+
+      <div class="game-score">
+
+        ❤️ Nyawa:
+        <strong id="trafficLives">3</strong>
+
+        &nbsp;|&nbsp;
+
+        ⭐ Skor:
+        <strong id="trafficScore">0</strong>
+
+      </div>
+
+      <button
+        class="game-button"
+        onclick="startTraffic()">
+        🚦 Mulai Challenge
+      </button>
+
+      <div class="traffic-area">
+
+        <div class="traffic-light">
+
+          <div
+            id="redBulb"
+            class="traffic-bulb red">
+          </div>
+
+          <div
+            id="yellowBulb"
+            class="traffic-bulb yellow">
+          </div>
+
+          <div
+            id="greenBulb"
+            class="traffic-bulb green">
+          </div>
+
+        </div>
+
+        <div
+          id="trafficCar"
+          class="traffic-car"
+          onclick="trafficClick()">
+          🚗
+        </div>
+
+        <p id="trafficInstruction">
+          Tekan mulai untuk bermain!
+        </p>
+
+      </div>
+
+      <p
+        id="trafficMessage"
+        class="game-message">
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  🏁 Radiator Springs • Class Piket System 🚗
+
+  <br><br>
+
+  ⭐ Kumpulkan XP dan jadilah
+  <strong>Top Racer!</strong>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   DATA SISWA
+===================================================== */
+
+const students = [
+
+  {name:"Ade",day:"Senin"},
+  {name:"Altammiz",day:"Senin"},
+  {name:"Alzam",day:"Senin"},
+  {name:"Andrian",day:"Senin"},
+  {name:"Angga",day:"Senin"},
+  {name:"Annisa",day:"Senin"},
+  {name:"Asri",day:"Senin"},
+
+  {name:"Astaffa",day:"Selasa"},
+  {name:"Bayu",day:"Selasa"},
+  {name:"Cornelia",day:"Selasa"},
+  {name:"Elvira",day:"Selasa"},
+  {name:"Fachriza",day:"Selasa"},
+  {name:"Fani",day:"Selasa"},
+  {name:"Juneta",day:"Selasa"},
+
+  {name:"Keysha",day:"Rabu"},
+  {name:"Khansa",day:"Rabu"},
+  {name:"Marsya",day:"Rabu"},
+  {name:"Marvel",day:"Rabu"},
+  {name:"Mysha",day:"Rabu"},
+  {name:"Muhammad Adrian",day:"Rabu"},
+  {name:"Mutmainah",day:"Rabu"},
+
+  {name:"Najwa",day:"Kamis"},
+  {name:"Nauval",day:"Kamis"},
+  {name:"Nabila",day:"Kamis"},
+  {name:"Nazma",day:"Kamis"},
+  {name:"Radiya",day:"Kamis"},
+  {name:"Raditya",day:"Kamis"},
+  {name:"Rahadian",day:"Kamis"},
+
+  {name:"Ralita",day:"Jumat"},
+  {name:"Reva",day:"Jumat"},
+  {name:"Salsa",day:"Jumat"},
+  {name:"Shefitri",day:"Jumat"},
+  {name:"Sulis",day:"Jumat"},
+  {name:"Vitria",day:"Jumat"},
+  {name:"Wibi",day:"Jumat"}
+
+];
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+let studentXP =
+  JSON.parse(
+    localStorage.getItem("carsStudentXP")
+  ) || {};
+
+let attendance =
+  JSON.parse(
+    localStorage.getItem("carsAttendance")
+  ) || {};
+
+let selectedDay = "Semua";
+
+
+/* =====================================================
+   INITIAL XP
+===================================================== */
+
+students.forEach(student => {
+
+  if(studentXP[student.name] === undefined){
+
+    studentXP[student.name] = 0;
+
+  }
+
+});
+
+
+/* =====================================================
+   RENDER SCHEDULE
+===================================================== */
+
+function renderSchedule(){
+
+  const schedule =
+    document.getElementById("schedule");
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  schedule.innerHTML = "";
+
+  const days =
+    ["Senin","Selasa","Rabu","Kamis","Jumat"];
+
+  let counts = {
+    Hadir:0,
+    Izin:0,
+    Sakit:0,
+    Alpa:0
+  };
+
+  days.forEach(day => {
+
+    if(
+      selectedDay !== "Semua" &&
+      selectedDay !== day
+    ) return;
+
+    const filtered =
+      students.filter(student =>
+
+        student.day === day &&
+        student.name
+          .toLowerCase()
+          .includes(search)
+
+      );
+
+    if(filtered.length === 0)
+      return;
+
+    const section =
+      document.createElement("div");
+
+    section.className =
+      "day-section";
+
+    section.innerHTML =
+      `<div class="day-title">
+        📅 ${day}
+      </div>
+      <div class="student-grid"></div>`;
+
+    const grid =
+      section.querySelector(".student-grid");
+
+    filtered.forEach(student => {
+
+      const key =
+        student.name;
+
+      const status =
+        attendance[key] || "";
+
+      if(status)
+        counts[status]++;
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "student-card";
+
+      card.innerHTML = `
+
+        <div class="student-name">
+          ${student.name}
+        </div>
+
+        <div>
+          📅 ${student.day}
+        </div>
+
+        <div class="student-xp">
+          ⭐ ${studentXP[key] || 0} XP
+        </div>
+
+        <div class="attendance">
+
+          <button
+            class="${status==="Hadir" ? "active":""}"
+            onclick="setAttendance('${key}','Hadir')">
+            H
+          </button>
+
+          <button
+            class="${status==="Izin" ? "active":""}"
+            onclick="setAttendance('${key}','Izin')">
+            I
+          </button>
+
+          <button
+            class="${status==="Sakit" ? "active":""}"
+            onclick="setAttendance('${key}','Sakit')">
+            S
+          </button>
+
+          <button
+            class="${status==="Alpa" ? "active":""}"
+            onclick="setAttendance('${key}','Alpa')">
+            A
+          </button>
+
+        </div>
+      `;
+
+      grid.appendChild(card);
+
+    });
+
+    schedule.appendChild(section);
+
+  });
+
+  document.getElementById("hadirCount")
+    .textContent = counts.Hadir;
+
+  document.getElementById("izinCount")
+    .textContent = counts.Izin;
+
+  document.getElementById("sakitCount")
+    .textContent = counts.Sakit;
+
+  document.getElementById("alpaCount")
+    .textContent = counts.Alpa;
+
+}
+
+
+/* =====================================================
+   ATTENDANCE
+===================================================== */
+
+function setAttendance(name,status){
+
+  attendance[name] =
+    status;
+
+  localStorage.setItem(
+    "carsAttendance",
+    JSON.stringify(attendance)
+  );
+
+  renderSchedule();
+
+}
+
+
+/* =====================================================
+   DAY FILTER
+===================================================== */
+
+function setDay(day,button){
+
+  selectedDay = day;
+
+  document
+    .querySelectorAll(".day-btn")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  renderSchedule();
+
+}
+
+
+/* =====================================================
+   LEADERBOARD
+===================================================== */
+
+function renderLeaderboard(){
+
+  const list =
+    document.getElementById(
+      "leaderboardList"
+    );
+
+  const sorted =
+    [...students].sort(
+      (a,b) =>
+        (studentXP[b.name] || 0) -
+        (studentXP[a.name] || 0)
+    );
+
+  list.innerHTML = "";
+
+  sorted.forEach(
+    (student,index) => {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "leader-item";
+
+      item.innerHTML = `
+
+        <span class="rank">
+          #${index + 1}
+        </span>
+
+        <strong>
+          ${student.name}
+        </strong>
+
+        <span>
+          ⭐ ${studentXP[student.name] || 0} XP
+        </span>
+
+      `;
+
+      list.appendChild(item);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+function toggleDarkMode(){
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "carsDarkMode",
+    document.body.classList.contains("dark")
+  );
+
+}
+
+
+/* =====================================================
+   GAME PLAYER
+===================================================== */
+
+const gamePlayer =
+  document.getElementById(
+    "gamePlayer"
+  );
+
+const playerXP =
+  document.getElementById(
+    "playerXP"
+  );
+
+
+students.forEach(student => {
+
+  const option =
+    document.createElement("option");
+
+  option.value =
+    student.name;
+
+  option.textContent =
+    student.name +
+    " • " +
+    student.day;
+
+  gamePlayer.appendChild(option);
+
+});
+
+
+gamePlayer.addEventListener(
+  "change",
+  updatePlayerXP
+);
+
+
+function updatePlayerXP(){
+
+  const name =
+    gamePlayer.value;
+
+  if(!name){
+
+    playerXP.textContent =
+      "⭐ XP saat ini: 0";
+
+    return;
+
+  }
+
+  playerXP.textContent =
+    "⭐ XP saat ini: " +
+    (studentXP[name] || 0) +
+    " XP";
+
+}
+
+
+function getSelectedPlayer(){
+
+  const name =
+    gamePlayer.value;
+
+  if(!name){
+
+    alert(
+      "👤 Pilih nama siswa terlebih dahulu!"
+    );
+
+    return null;
+
+  }
+
+  return name;
+
+}
+
+
+/* =====================================================
+   TAMBAH XP
+===================================================== */
+
+function addGameXP(name,xp){
+
+  if(!name || xp <= 0)
+    return;
+
+  studentXP[name] =
+    (studentXP[name] || 0) + xp;
+
+  localStorage.setItem(
+    "carsStudentXP",
+    JSON.stringify(studentXP)
+  );
+
+  updatePlayerXP();
+
+  renderSchedule();
+
+  renderLeaderboard();
+
+}
+
+
+/* =====================================================
+   GAME TAB
+===================================================== */
+
+function showGame(game,button){
+
+  document
+    .querySelectorAll(".game-tab")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+  document
+    .querySelectorAll(".game-panel")
+    .forEach(panel =>
+      panel.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  document
+    .getElementById(
+      "game-" + game
+    )
+    .classList.add("active");
+
+}
+
+
+/* =====================================================
+   GAME 1 — PIKET RACE
+===================================================== */
+
+let raceScore = 0;
+let raceQuestion = 0;
+let raceStudents = [];
+let currentRaceStudent = null;
+let racePlayer = null;
+
+function startRace(){
+
+  racePlayer =
+    getSelectedPlayer();
+
+  if(!racePlayer)
+    return;
+
+  raceScore = 0;
+  raceQuestion = 0;
+
+  raceStudents =
+    [...students]
+      .sort(() => Math.random() - .5)
+      .slice(0,10);
+
+  document.getElementById("raceScore")
+    .textContent = "0";
+
+  document.getElementById("raceNumber")
+    .textContent = "0";
+
+  document.getElementById("raceResult")
+    .style.display = "none";
+
+  document.getElementById("racePlay")
+    .style.display = "block";
+
+  nextRaceQuestion();
+
+}
+
+function nextRaceQuestion(){
+
+  if(raceQuestion >= 10){
+
+    finishRace();
+    return;
+
+  }
+
+  currentRaceStudent =
+    raceStudents[raceQuestion];
+
+  document.getElementById("raceName")
+    .textContent =
+    currentRaceStudent.name;
+
+  document.getElementById("raceNumber")
+    .textContent =
+    raceQuestion + 1;
+
+  document.getElementById("raceMessage")
+    .textContent = "";
+
+}
+
+function answerRace(answer){
+
+  if(!currentRaceStudent)
+    return;
+
+  if(answer === currentRaceStudent.day){
+
+    raceScore += 10;
+
+    document.getElementById(
+      "raceMessage"
+    ).textContent =
+      "🎉 BENAR! +10 poin";
+
+  }else{
+
+    document.getElementById(
+      "raceMessage"
+    ).textContent =
+      "😅 Salah! Jawabannya " +
+      currentRaceStudent.day;
+
+  }
+
+  document.getElementById("raceScore")
+    .textContent =
+    raceScore;
+
+  raceQuestion++;
+
+  setTimeout(
+    nextRaceQuestion,
+    600
+  );
+
+}
+
+function finishRace(){
+
+  addGameXP(
+    racePlayer,
+    raceScore
+  );
+
+  document.getElementById("racePlay")
+    .style.display = "none";
+
+  document.getElementById("raceResult")
+    .style.display = "block";
+
+  document.getElementById("raceXP")
+    .textContent =
+    "+" + raceScore +
+    " XP untuk " +
+    racePlayer;
+
+  document.getElementById("raceResultText")
+    .textContent =
+    "🏆 Game selesai! XP sudah masuk ke leaderboard.";
+
+}
+
+
+/* =====================================================
+   GAME 2 — MEMORY
+===================================================== */
+
+const memorySymbols = [
+  "🚗","🚙","🏎️","🚕",
+  "🚓","🚌","🏁","⭐"
+];
+
+let memoryCards = [];
+let memoryFirst = null;
+let memorySecond = null;
+let memoryLock = false;
+let memoryMoves = 0;
+let memoryMatches = 0;
+let memoryPlayer = null;
+let memoryFinished = false;
+
+function startMemory(){
+
+  memoryPlayer =
+    getSelectedPlayer();
+
+  if(!memoryPlayer)
+    return;
+
+  memoryCards =
+    [...memorySymbols,...memorySymbols]
+      .sort(() => Math.random() - .5);
+
+  memoryFirst = null;
+  memorySecond = null;
+  memoryLock = false;
+  memoryMoves = 0;
+  memoryMatches = 0;
+  memoryFinished = false;
+
+  document.getElementById("memoryMoves")
+    .textContent = "0";
+
+  document.getElementById("memoryMatches")
+    .textContent = "0";
+
+  document.getElementById("memoryMessage")
+    .textContent = "";
+
+  const board =
+    document.getElementById(
+      "memoryBoard"
+    );
+
+  board.innerHTML = "";
+
+  memoryCards.forEach(symbol => {
+
+    const card =
+      document.createElement("button");
+
+    card.className =
+      "memory-card";
+
+    card.textContent =
+      "?";
+
+    card.dataset.symbol =
+      symbol;
+
+    card.onclick =
+      () => flipMemory(card);
+
+    board.appendChild(card);
+
+  });
+
+}
+
+function flipMemory(card){
+
+  if(
+    memoryLock ||
+    card.classList.contains("flipped") ||
+    card.classList.contains("matched") ||
+    memoryFinished
+  )
+    return;
+
+  card.classList.add("flipped");
+
+  card.textContent =
+    card.dataset.symbol;
+
+  if(!memoryFirst){
+
+    memoryFirst = card;
+    return;
+
+  }
+
+  memorySecond = card;
+  memoryMoves++;
+
+  document.getElementById(
+    "memoryMoves"
+  ).textContent =
+    memoryMoves;
+
+  if(
+    memoryFirst.dataset.symbol ===
+    memorySecond.dataset.symbol
+  ){
+
+    memoryFirst.classList.add("matched");
+    memorySecond.classList.add("matched");
+
+    memoryMatches++;
+
+    document.getElementById(
+      "memoryMatches"
+    ).textContent =
+    memoryMatches;
+
+    memoryFirst = null;
+    memorySecond = null;
+
+    if(memoryMatches === 8){
+
+      memoryFinished = true;
+
+      const earnedXP =
+        Math.max(
+          30,
+          70 - memoryMoves
+        );
+
+      addGameXP(
+        memoryPlayer,
+        earnedXP
+      );
+
+      document.getElementById(
+        "memoryMessage"
+      ).textContent =
+        "🏆 SELESAI! +" +
+        earnedXP +
+        " XP untuk " +
+        memoryPlayer;
+
+    }
+
+  }else{
+
+    memoryLock = true;
+
+    setTimeout(() => {
+
+      memoryFirst.classList.remove("flipped");
+      memorySecond.classList.remove("flipped");
+
+      memoryFirst.textContent = "?";
+      memorySecond.textContent = "?";
+
+      memoryFirst = null;
+      memorySecond = null;
+
+      memoryLock = false;
+
+    },700);
+
+  }
+
+}
+
+
+/* =====================================================
+   GAME 3 — QUICK TAP
+===================================================== */
+
+let tapScore = 0;
+let tapTime = 15;
+let tapInterval = null;
+let tapPlayer = null;
+
+function startTapGame(){
+
+  tapPlayer =
+    getSelectedPlayer();
+
+  if(!tapPlayer)
+    return;
+
+  clearInterval(tapInterval);
+
+  tapScore = 0;
+  tapTime = 15;
+
+  document.getElementById(
+    "tapScore"
+  ).textContent = "0";
+
+  document.getElementById(
+    "tapTimer"
+  ).textContent = "15";
+
+  document.getElementById(
+    "tapMessage"
+  ).textContent = "";
+
+  const target =
+    document.getElementById(
+      "tapTarget"
+    );
+
+  target.style.display =
+    "flex";
+
+  moveTarget();
+
+  tapInterval =
+    setInterval(() => {
+
+      tapTime--;
+
+      document.getElementById(
+        "tapTimer"
+      ).textContent =
+        tapTime;
+
+      if(tapTime <= 0)
+        finishTapGame();
+
+    },1000);
+
+}
+
+function hitTarget(){
+
+  if(tapTime <= 0)
+    return;
+
+  tapScore++;
+
+  document.getElementById(
+    "tapScore"
+  ).textContent =
+    tapScore;
+
+  moveTarget();
+
+}
+
+function moveTarget(){
+
+  const area =
+    document.querySelector(
+      ".tap-area"
+    );
+
+  const target =
+    document.getElementById(
+      "tapTarget"
+    );
+
+  const maxX =
+    area.clientWidth -
+    target.offsetWidth -
+    10;
+
+  const maxY =
+    area.clientHeight -
+    target.offsetHeight -
+    10;
+
+  target.style.left =
+    Math.max(
+      5,
+      Math.random() * maxX
+    ) + "px";
+
+  target.style.top =
+    Math.max(
+      5,
+      Math.random() * maxY
+    ) + "px";
+
+}
+
+function finishTapGame(){
+
+  clearInterval(tapInterval);
+
+  document.getElementById(
+    "tapTarget"
+  ).style.display =
+    "none";
+
+  const earnedXP =
+    Math.floor(
+      tapScore / 2
+    );
+
+  addGameXP(
+    tapPlayer,
+    earnedXP
+  );
+
+  document.getElementById(
+    "tapMessage"
+  ).textContent =
+    "🏁 Waktu habis! " +
+    tapScore +
+    " klik → +" +
+    earnedXP +
+    " XP untuk " +
+    tapPlayer;
+
+}
+
+
+/* =====================================================
+   GAME 4 — LIGHTNING
+===================================================== */
+
+let lightningScore = 0;
+let lightningTime = 20;
+let lightningInterval = null;
+let lightningPlayer = null;
+
+function startLightning(){
+
+  lightningPlayer =
+    getSelectedPlayer();
+
+  if(!lightningPlayer)
+    return;
+
+  clearInterval(lightningInterval);
+
+  lightningScore = 0;
+  lightningTime = 20;
+
+  document.getElementById(
+    "lightningScore"
+  ).textContent = "0";
+
+  document.getElementById(
+    "lightningTimer"
+  ).textContent = "20";
+
+  document.getElementById(
+    "lightningMessage"
+  ).textContent = "";
+
+  document.getElementById(
+    "lightningTarget"
+  ).style.display =
+    "flex";
+
+  moveLightning();
+
+  lightningInterval =
+    setInterval(() => {
+
+      lightningTime--;
+
+      document.getElementById(
+        "lightningTimer"
+      ).textContent =
+      lightningTime;
+
+      if(lightningTime <= 0)
+        finishLightning();
+
+    },1000);
+
+}
+
+function catchLightning(){
+
+  if(lightningTime <= 0)
+    return;
+
+  lightningScore++;
+
+  document.getElementById(
+    "lightningScore"
+  ).textContent =
+    lightningScore;
+
+  moveLightning();
+
+}
+
+function moveLightning(){
+
+  const area =
+    document.querySelector(
+      ".lightning-area"
+    );
+
+  const target =
+    document.getElementById(
+      "lightningTarget"
+    );
+
+  const maxX =
+    area.clientWidth - 70;
+
+  const maxY =
+    area.clientHeight - 70;
+
+  target.style.left =
+    Math.max(
+      5,
+      Math.random() * maxX
+    ) + "px";
+
+  target.style.top =
+    Math.max(
+      5,
+      Math.random() * maxY
+    ) + "px";
+
+}
+
+function finishLightning(){
+
+  clearInterval(
+    lightningInterval
+  );
+
+  document.getElementById(
+    "lightningTarget"
+  ).style.display =
+    "none";
+
+  const earnedXP =
+    Math.floor(
+      lightningScore / 5
+    ) * 5;
+
+  addGameXP(
+    lightningPlayer,
+    earnedXP
+  );
+
+  document.getElementById(
+    "lightningMessage"
+  ).textContent =
+    "⚡ Kamu menangkap " +
+    lightningScore +
+    " petir! +" +
+    earnedXP +
+    " XP untuk " +
+    lightningPlayer;
+
+}
+
+
+/* =====================================================
+   GAME 5 — TRAFFIC LIGHT
+===================================================== */
+
+let trafficScore = 0;
+let trafficLives = 3;
+let trafficTimer = null;
+let trafficPlayer = null;
+let trafficState = "red";
+let trafficGameActive = false;
+
+function startTraffic(){
+
+  trafficPlayer =
+    getSelectedPlayer();
+
+  if(!trafficPlayer)
+    return;
+
+  clearTimeout(trafficTimer);
+
+  trafficScore = 0;
+  trafficLives = 3;
+  trafficGameActive = true;
+
+  document.getElementById(
+    "trafficScore"
+  ).textContent = "0";
+
+  document.getElementById(
+    "trafficLives"
+  ).textContent = "3";
+
+  document.getElementById(
+    "trafficMessage"
+  ).textContent = "";
+
+  changeTraffic();
+
+}
+
+function changeTraffic(){
+
+  if(
+    !trafficGameActive ||
+    trafficLives <= 0
+  )
+    return;
+
+  const states =
+    ["red","yellow","green"];
+
+  trafficState =
+    states[
+      Math.floor(
+        Math.random() * states.length
+      )
+    ];
+
+  document
+    .querySelectorAll(".traffic-bulb")
+    .forEach(
+      bulb =>
+        bulb.classList.remove("active")
+    );
+
+  document
+    .getElementById(
+      trafficState + "Bulb"
+    )
+    .classList.add("active");
+
+  const instruction =
+    document.getElementById(
+      "trafficInstruction"
+    );
+
+  if(trafficState === "green"){
+
+    instruction.textContent =
+      "🟢 GO! Klik mobil!";
+
+  }else if(
+    trafficState === "yellow"
+  ){
+
+    instruction.textContent =
+      "🟡 WAIT! Jangan klik!";
+
+  }else{
+
+    instruction.textContent =
+      "🔴 STOP! Jangan klik!";
+
+  }
+
+  clearTimeout(trafficTimer);
+
+  trafficTimer =
+    setTimeout(
+      changeTraffic,
+      700 + Math.random() * 900
+    );
+
+}
+
+function trafficClick(){
+
+  if(!trafficGameActive)
+    return;
+
+  if(trafficState === "green"){
+
+    trafficScore++;
+
+    document.getElementById(
+      "trafficScore"
+    ).textContent =
+      trafficScore;
+
+    document.getElementById(
+      "trafficMessage"
+    ).textContent =
+      "🎉 Benar! +1 skor";
+
+  }else{
+
+    trafficLives--;
+
+    document.getElementById(
+      "trafficLives"
+    ).textContent =
+      trafficLives;
+
+    document.getElementById(
+      "trafficMessage"
+    ).textContent =
+      "💥 Salah! Nyawa berkurang!";
+
+    if(trafficLives <= 0){
+
+      finishTraffic();
+
+    }
+
+  }
+
+}
+
+function finishTraffic(){
+
+  trafficGameActive = false;
+
+  clearTimeout(
+    trafficTimer
+  );
+
+  document
+    .querySelectorAll(".traffic-bulb")
+    .forEach(
+      bulb =>
+        bulb.classList.remove("active")
+    );
+
+  const earnedXP =
+    trafficScore * 5;
+
+  addGameXP(
+    trafficPlayer,
+    earnedXP
+  );
+
+  document.getElementById(
+    "trafficInstruction"
+  ).textContent =
+    "🏁 Challenge selesai!";
+
+  document.getElementById(
+    "trafficMessage"
+  ).textContent =
+    "🚦 Skor: " +
+    trafficScore +
+    " → +" +
+    earnedXP +
+    " XP untuk " +
+    trafficPlayer;
+
+}
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+if(
+  localStorage.getItem("carsDarkMode")
+  === "true"
+){
+
+  document.body.classList.add("dark");
+
+}
+
+localStorage.setItem(
+  "carsStudentXP",
+  JSON.stringify(studentXP)
+);
+
+renderSchedule();
+renderLeaderboard();
+updatePlayerXP();
+startMemory();
+
+</script>
+
+</body>
+</html>
